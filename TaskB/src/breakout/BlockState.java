@@ -44,10 +44,10 @@ public abstract class BlockState {
 
 	/**
 	 * Returns the ball state after "this" block  is hit by the incoming ball, based on the incoming ball
-	 * state. Returns null if not hit. This method is not intended to change the ball speed.
+	 * state. This method is not intended to change the ball speed.
 	 * 
 	 * @pre | ballState != null
-	 * @post | result.getVelocity() .equals( ballState.getVelocity() )
+	 * @post | result != null && (result.getVelocity() .equals( ballState.getVelocity() ))
 	 */
 	public abstract Ball ballStateAfterHit(Ball ballState);
 
