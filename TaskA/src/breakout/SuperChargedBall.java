@@ -70,9 +70,10 @@ public class SuperChargedBall extends NormalBall {
 	@Override
 	/**
 	 * TODO
+	 * 
 	 */
 	public Ball backToNormal() {
-		return null;
+		return new NormalBall(getLocation(), getVelocity());
 	}
 
 }

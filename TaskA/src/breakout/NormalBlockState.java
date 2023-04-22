@@ -29,7 +29,7 @@ public class NormalBlockState extends BlockState {
 	 * TODO
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
-		return null;
+		return ballState;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class NormalBlockState extends BlockState {
 	 * TODO
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
-		return null;
+		return paddleState;
 	}
 
 	@Override

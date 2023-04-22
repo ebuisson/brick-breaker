@@ -24,7 +24,12 @@ public class SturdyBlockState extends BlockState {
 	 * TODO
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
-		return null;
+		if (getLivesLeft() >1) {
+			return new SturdyBlockState(getLocation(),getLivesLeft()-1);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -32,7 +37,7 @@ public class SturdyBlockState extends BlockState {
 	 * TODO
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
-		return null;
+		return ballState;
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class SturdyBlockState extends BlockState {
 	 * TODO
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
-		return null;
+		return paddleState;
 	}
 
 	@Override

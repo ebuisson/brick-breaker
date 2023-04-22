@@ -17,7 +17,7 @@ public class ReplicatorBlockState extends NormalBlockState {
 	 * TODO
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
-		return null;
+		return new ReplicatingPaddleState(paddleState.getCenter(), Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 4);
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public abstract class Ball {
 	 * @pre | elapsedTime <= Constants.MAX_ELAPSED_TIME
 	 * @post | getLocation().getCenter().equals(old(getLocation()).getCenter().plus(v))
 	 * @post | getLocation().getDiameter() == old(getLocation()).getDiameter()
-	 * @mutates this
+	 * @mutates | this
 	 */
 	public abstract void move(Vector v, int elapsedTime);
 	
@@ -181,7 +181,12 @@ public abstract class Ball {
 	 * 
 	 */
 	public final Color getColor() {
-		return null;
+		if (getLocation().getDiameter() > Constants.INIT_BALL_DIAMETER) {
+			return Constants.BALL_FAST_COLOR;
+		}
+		else {
+			return Constants.BALL_COLOR;
+		}
 	}
 	
 	

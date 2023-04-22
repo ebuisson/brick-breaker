@@ -59,9 +59,10 @@ public class NormalBall extends Ball {
 	@Override
 	/**
 	 * TODO
+	 * @result == this
 	 */
 	public Ball backToNormal() {
-		return null;
+		return this;
 	}
 
 }
