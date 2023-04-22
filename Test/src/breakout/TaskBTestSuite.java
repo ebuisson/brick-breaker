@@ -35,6 +35,9 @@ class TaskBTestSuite {
 		
 	}
 	
+	// @Test
+	// Supercharged ball must have a large diameter
+	
 	@Test
 	void dummyTest() {
 		assertTrue(false);
