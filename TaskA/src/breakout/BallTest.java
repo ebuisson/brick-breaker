@@ -16,6 +16,7 @@ class BallTest {
 	NormalBall n2;
 	SuperChargedBall s1; 
 	SuperChargedBall s2;
+	BlockState b2;
 
 	
 	@BeforeEach
@@ -27,6 +28,7 @@ class BallTest {
 		s1 = new SuperChargedBall(c152, v1010,4);
 		n2 = Setups.typicalNormalBall(0);
 		s2 = Setups.typicalSuperBall(0);
+		b2 = Setups.typicalBlocks()[0];
 		
 	}
 	
@@ -53,9 +55,18 @@ class BallTest {
 	}
 	
 	@Test
-	void testBounceOn() {
+	void testHitRect() {
 		assertEquals(null,n1.bounceOn(new Rect(new Point(100,100),new Point(110,110))));
-		assertEquals(n1.getVelocity().mirrorOver(Vector.DOWN),n1.bounceOn(new Rect(new Point(0,0), new Point(20,20))));
+		assertEquals(n2.getLocation().getCenter(),new Point(42500,28125));
+		n2.setVelocity(new Vector(7,1));
+		n2.move(n2.getVelocity().scaled(450), 100);
+		assertEquals(b2.getLocation().getBottomRight(),new Point(50000,30000));
+		assertEquals(b2.getLocation().getTopLeft(),new Point(45000,26250));
+		//assertEquals(n2.getLocation().getCenter(),new Point(200,200));
+		assertEquals(b2.getLocation().collideWith(n2.getLocation()),new Vector(0,-1));
+		assertTrue(n2.collidesWith(b2.getLocation()));
+		assertTrue(n2.hitRect(b2.getLocation()));
+		assertEquals(n2.getVelocity().mirrorOver(Vector.LEFT),n2.bounceOn(b2.getLocation()));
 	}
 	
 	@Test
