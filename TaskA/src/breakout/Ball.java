@@ -181,7 +181,7 @@ public abstract class Ball {
 	 * 
 	 */
 	public final Color getColor() {
-		if (getLocation().getDiameter() > Constants.INIT_BALL_DIAMETER) {
+		if (getVelocity().getSquareLength() > Constants.BALL_SPEED_THRESH) {
 			return Constants.BALL_FAST_COLOR;
 		}
 		else {
