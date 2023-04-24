@@ -47,7 +47,7 @@ public class ReplicatingPaddleState extends PaddleState {
 	 * TODO
 	 */
 	public Color[] getActualColors() {
-		return null;
+		return getPossibleColors();
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class ReplicatingPaddleState extends PaddleState {
 	 * TODO
 	 */
 	public PaddleState reproduce() {
-		return null;
+		return new ReplicatingPaddleState(getCenter(), getActualColors(), getCurColor(), getCount());
 	}
 	
 	@Override

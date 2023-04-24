@@ -38,9 +38,9 @@ public abstract class PaddleState {
 
 	 */
 	public PaddleState(Point center, Color[] possibleColors, Color curColor) {
-		this.center = null;
-		this.possibleColors = null; //remember encapsulation (IN and OUT of the class).
-		this.curColor = null;
+		this.center = center;
+		this.possibleColors = possibleColors; //remember encapsulation (IN and OUT of the class).
+		this.curColor = curColor;
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public abstract class PaddleState {
 	 * @creates | result
 	 */
 	public Color[] getPossibleColors() {
-		return null;
+		return possibleColors;
 	}
 	
 	public Color getCurColor() {
@@ -133,8 +133,11 @@ public abstract class PaddleState {
 	 */
 	public void tossCurColor() {
 		Random rand = new Random();
+	    int upperbound = getPossibleColors().length;
+	    setCurColor(possibleColors[rand.nextInt(upperbound)]);
 	}
 	
+
 	/**
 	 * @creates | result
 	 * 
@@ -143,5 +146,9 @@ public abstract class PaddleState {
 	public abstract PaddleState reproduce();
 	
 	public abstract boolean equalContent(PaddleState other);
+
+	public void setCurColor(Color curColor) {
+		this.curColor = curColor;
+	}
 
 }
