@@ -21,7 +21,7 @@ public class Constants {
 	
 	//ball dim, speed
 	public static final int INIT_BALL_DIAMETER = 700;
-	public static final Vector INIT_BALL_VELOCITY = new Vector(5,3); // new Vector(5,7);
+	public static final Vector INIT_BALL_VELOCITY = new Vector(5,7); // new Vector(5,7);
 	public static final int MAX_BALL_SPEED = 16;
 	public static final int MBS2 = MAX_BALL_SPEED * MAX_BALL_SPEED;
 	public static final int MAX_BALL_REPLICAS = 3;
