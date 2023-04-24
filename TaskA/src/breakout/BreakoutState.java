@@ -183,30 +183,12 @@ public class BreakoutState {
 	private Ball collideBallBlocks(Ball ball) {
 		for(int i=0; i<blocks.length; i++) {
 			if (ball.collidesWith(blocks[i].getLocation())) {
-				hitBlock(blocks[i],ball.getVelocity().getSquareLength());
+				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
+				ball.hitBlock(blocks[i].getLocation(), destroyed);
 			}
-			
-			
-			
-			if (ball.collidesWith(paddle.getLocation())) {
-				ball.hitPaddle(paddle.getLocation(),paddleVel);
-				int nrBalls = paddle.numberOfBallsAfterHit();
-				if(nrBalls > 1) {
-					Ball[] curballs = balls;
-					balls = new Ball[curballs.length + nrBalls - 1];
-					for(int i = 0; i < curballs.length; ++i) {
-						balls[i] = curballs[i];
-					}
-					for(int i = 1; i < nrBalls; ++i) {
-						Ball newBall = new NormalBall( ball.getLocation() , ball.getVelocity() );
-						newBall .setPosition( ball.getCenter() .plus( new Vector(i * 500 , 0)));
-						balls[curballs.length + i -1] = newBall;
-					}
-				}
-				paddle = paddle.stateAfterHit();
-			}
-			
 		}
+		return ball;
+			
 	}
 
 	/**
@@ -228,12 +210,14 @@ public class BreakoutState {
 				nblocks.add(b);
 			}
 		}
-		if(squaredSpeed < Constants.BALL_SPEED_THRESH && block.getColor() != new Color(128, 128, 128)) {
-			block = block.blockStateAfterHit(squaredSpeed);
-			nblocks.add(block);
+		//if(squaredSpeed < Constants.BALL_SPEED_THRESH && block.getColor() != new Color(128, 128, 128)) {
+		block = block.blockStateAfterHit(squaredSpeed);
+		nblocks.add(block);
+		
+		if (block != null) {
 			destroyed = false; 
-
 			}
+		
 		blocks = nblocks.toArray(new BlockState[] {}); 
 		return destroyed;
 	}
