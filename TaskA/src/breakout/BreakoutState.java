@@ -66,8 +66,8 @@ public class BreakoutState {
 	 * @throws IllegalArgumentException | blocks == null
 	 * @throws IllegalArgumentException | bottomRight == null
 	 * @throws IllegalArgumentException | paddle == null
-	 * @throws IllegalArgumentException | Arrays.stream(balls).allMatch(b -> b != null)
-	 * @throws IllegalArgumentException | Arrays.stream(blocks).allMatch(b -> b != null)
+	 * @throws IllegalArgumentException | !Arrays.stream(balls).allMatch(b -> b != null)
+	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> b != null)
 	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(bottomRight)
 	 * @throws IllegalArgumentException | !(new Rect(Constants.ORIGIN,bottomRight)).contains(paddle.getLocation())
 	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> (new Rect(Constants.ORIGIN,bottomRight)).contains(b.getLocation()))
@@ -112,12 +112,13 @@ public class BreakoutState {
 	 * @creates | result, ...result
 	 */
 	public Ball[] getBalls() {
+		return balls.clone();
 		//deep copy out
-		Ball[] res = new Ball[balls.length];
-		for (int i = 0 ; i < balls.length ; i++) {
-			res[i] = balls[i].clone();
-		}
-		return res;
+		//Ball[] res = new Ball[balls.length];
+		//for (int i = 0 ; i < balls.length ; i++) {
+		//	res[i] = balls[i].clone();
+		//}
+		//return res;
 	}
 
 	/**
@@ -185,6 +186,10 @@ public class BreakoutState {
 			if (ball.collidesWith(blocks[i].getLocation())) {
 				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
 				ball.hitBlock(blocks[i].getLocation(), destroyed);
+				paddle = blocks[i].paddleStateAfterHit(paddle);
+				ball = blocks[i].ballStateAfterHit(ball);
+				if (destroyed) {blocks[i] = null;}
+				blocks = Arrays.stream(blocks).filter(x -> x != null).toArray(BlockState[]::new);
 			}
 		}
 		return ball;
@@ -195,7 +200,7 @@ public class BreakoutState {
 	 * TODO
 	 * 
 	 * "Hits" the block argument once with a ball having speed sqrt(squaredSpeed).
-	 * This can result in the block being destructed, i.e. not tracked in getBlocks() (returns ture in that case).
+	 * This can result in the block being destructed, i.e. not tracked in getBlocks() (returns true in that case).
 	 * Or no destruction occurs; in this case the block is updated instead of being removed. (returns false in that case).
 	 * 
 	 * Does not affect the balls.
@@ -203,23 +208,15 @@ public class BreakoutState {
 	 * @pre | squaredSpeed >= 0
 	 */
 	private boolean hitBlock(BlockState block, int squaredSpeed) {
-		boolean destroyed = true;
-		ArrayList<BlockState> nblocks = new ArrayList<BlockState>();
-		for (BlockState b : blocks) {
-			if (b != block) {
-				nblocks.add(b);
-			}
+		if (block instanceof NormalBlockState | block instanceof ReplicatorBlockState | block instanceof PowerupBallBlockState) {
+			return true;
 		}
-		//if(squaredSpeed < Constants.BALL_SPEED_THRESH && block.getColor() != new Color(128, 128, 128)) {
-		block = block.blockStateAfterHit(squaredSpeed);
-		nblocks.add(block);
-		
-		if (block != null) {
-			destroyed = false; 
+		// Instance of SturdyBlockState
+		if (block.blockStateAfterHit(squaredSpeed) == null) {
+			return true; 
 			}
-		
-		blocks = nblocks.toArray(new BlockState[] {}); 
-		return destroyed;
+		block = block.blockStateAfterHit(squaredSpeed);
+		return false;	
 	}
 	
 	/**

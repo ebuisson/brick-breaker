@@ -1,6 +1,8 @@
 package breakout;
 
 import java.awt.Color;
+import java.util.Arrays;
+
 import breakout.utils.Rect;
 
 public class NormalBlockState extends BlockState {
