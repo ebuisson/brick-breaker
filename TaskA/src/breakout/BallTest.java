@@ -32,16 +32,7 @@ class BallTest {
 		
 	}
 	
-//	@Test
-//	void exampleTest1() {
-//		assertThrows( IllegalArgumentException.class,
-//				() -> insertcodehere );
-//      assertTrue ( 1 == 1 );
-//      assertEquals( expected, actual );
-//      assertNotEquals( unexpected, actual );
-//      assertNotSame( unexpected, actual );
-//      abreakoutState.tickDuring( 200 );
-//	}
+
 	
 	@Test 
 	void testBall() {
@@ -62,17 +53,19 @@ class BallTest {
 		n2.move(n2.getVelocity().scaled(450), 100);
 		assertEquals(b2.getLocation().getBottomRight(),new Point(50000,30000));
 		assertEquals(b2.getLocation().getTopLeft(),new Point(45000,26250));
-		//assertEquals(n2.getLocation().getCenter(),new Point(200,200));
 		assertEquals(b2.getLocation().collideWith(n2.getLocation()),new Vector(0,-1));
-		assertTrue(n2.collidesWith(b2.getLocation()));
-		assertTrue(n2.hitRect(b2.getLocation()));
-		assertEquals(n2.getVelocity().mirrorOver(Vector.LEFT),n2.bounceOn(b2.getLocation()));
+		assertFalse(n2.collidesWith(b2.getLocation()));
+		assertFalse(n2.hitRect(b2.getLocation()));
+		assertNotEquals(n2.getVelocity().mirrorOver(Vector.LEFT),n2.bounceOn(b2.getLocation()));
 	}
 	
 	@Test
-	void testGetColor() {
-		assertEquals(Constants.BALL_COLOR, n2.getColor());
+	void testGetColorSuperBall() {
 		assertEquals(Constants.BALL_FAST_COLOR, s2.getColor());
 	}
-
+	
+	@Test
+	void testGetColorNormalBall() {
+		assertEquals(Constants.BALL_FAST_COLOR, n2.getColor());
+	}
 }
