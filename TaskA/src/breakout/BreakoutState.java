@@ -208,15 +208,29 @@ public class BreakoutState {
 	 * @pre | squaredSpeed >= 0
 	 */
 	private boolean hitBlock(BlockState block, int squaredSpeed) {
-		if (block instanceof NormalBlockState | block instanceof ReplicatorBlockState | block instanceof PowerupBallBlockState) {
-			return true;
-		}
-		// Instance of SturdyBlockState
-		if (block.blockStateAfterHit(squaredSpeed) == null) {
-			return true; 
+		boolean destroyed = true;
+		ArrayList<BlockState> nblocks = new ArrayList<BlockState>();
+//		if (block instanceof NormalBlockState | block instanceof ReplicatorBlockState | block instanceof PowerupBallBlockState) {
+//			return true;
+//		}
+//		// Instance of SturdyBlockState
+//		if (block.blockStateAfterHit(squaredSpeed) == null) {
+//			return true; 
+//			}
+//		block = block.blockStateAfterHit(squaredSpeed);
+//		return false;
+		for (BlockState b : blocks) {
+			if (b != block) {
+				nblocks.add(b);
 			}
-		block = block.blockStateAfterHit(squaredSpeed);
-		return false;	
+		}
+		
+		if (block.blockStateAfterHit(squaredSpeed) != null) {
+			nblocks.add(block.blockStateAfterHit(squaredSpeed));
+			return false;
+		}
+		
+		return destroyed;
 	}
 	
 	/**
