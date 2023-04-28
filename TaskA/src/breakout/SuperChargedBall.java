@@ -26,7 +26,7 @@ public class SuperChargedBall extends NormalBall {
 	 */
 	@Override
 	public void hitBlock(Rect rect, boolean destroyed) {
-		if(!destroyed) { //bounces if normal ball again, or sturdy block
+		if(lifetime < 0 || !destroyed) { //bounces if normal ball again, or sturdy block
 			super.hitBlock(rect, destroyed);
 		}
 		if (getLocation().getDiameter() >= Constants.INIT_BALL_DIAMETER + 300) {

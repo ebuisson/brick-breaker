@@ -15,11 +15,10 @@ public class NormalBall extends Ball {
 	 * 
 	 * @pre | rect != null
 	 * @pre | collidesWith(rect)
-	 * @post | getCenter().equals( old(getCenter() )) //prev. location //getLocation().equals(old(getLocation()))
-	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() )) //prev no ||	 //getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation()))))
+	 * @post | getCenter().equals( old(getCenter() ))
+	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() ))
 	 * @mutates this
 	 */
-	 
 	@Override
 	public void hitBlock(Rect rect, boolean destroyed) {
 		setVelocity( bounceOn (rect) );

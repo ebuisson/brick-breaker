@@ -112,13 +112,12 @@ public class BreakoutState {
 	 * @creates | result, ...result
 	 */
 	public Ball[] getBalls() {
-		return balls.clone();
 		//deep copy out
-		//Ball[] res = new Ball[balls.length];
-		//for (int i = 0 ; i < balls.length ; i++) {
-		//	res[i] = balls[i].clone();
-		//}
-		//return res;
+		Ball[] res = new Ball[balls.length];
+		for (int i = 0 ; i < balls.length ; i++) {
+			res[i] = balls[i].clone();
+		}
+		return res;
 	}
 
 	/**
@@ -185,10 +184,10 @@ public class BreakoutState {
 		for(int i=0; i<blocks.length; i++) {
 			if (ball.collidesWith(blocks[i].getLocation())) {
 				paddle = blocks[i].paddleStateAfterHit(paddle);
-				ball = blocks[i].ballStateAfterHit(ball);
-				Rect blockLocation = blocks[i].getLocation();
+				BlockState blockClone = blocks[i];
 				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
-				ball.hitBlock(blockLocation, destroyed);
+				ball.hitBlock(blockClone.getLocation(), destroyed);
+				ball = blockClone.ballStateAfterHit(ball);
 			}
 		}
 		return ball;

@@ -15,13 +15,18 @@ public class PowerupBallBlockState extends NormalBlockState {
 
 	@Override
 	public Ball ballStateAfterHit(Ball b) {
-		//if (b.getLocation().getDiameter() > Constants.INIT_BALL_DIAMETER) {superDiam = b.getLocation().getDiameter();}
-		//else {superDiam = Constants.INIT_BALL_DIAMETER + 600;}
-		Circle superLoc = new Circle( b.getCenter(), Constants.INIT_BALL_DIAMETER + 600);
+		int superDiam;
+		if (b.getLocation().getDiameter() > Constants.INIT_BALL_DIAMETER) {
+			superDiam = b.getLocation().getDiameter();
+		}
+		else {
+			superDiam = Constants.INIT_BALL_DIAMETER + 600;
+		}
+		Circle superLoc = new Circle( b.getCenter(), superDiam);
 		return new SuperChargedBall(
 				superLoc,
 				b.getVelocity(),
-				Constants.SUPERCHARGED_BALL_LIFETIME);
+				Constants.SUPERCHARGED_BALL_LIFETIME);		
 	}
 
 	@Override
