@@ -184,12 +184,11 @@ public class BreakoutState {
 	private Ball collideBallBlocks(Ball ball) {
 		for(int i=0; i<blocks.length; i++) {
 			if (ball.collidesWith(blocks[i].getLocation())) {
-				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
-				ball.hitBlock(blocks[i].getLocation(), destroyed);
 				paddle = blocks[i].paddleStateAfterHit(paddle);
 				ball = blocks[i].ballStateAfterHit(ball);
-				if (destroyed) {blocks[i] = null;}
-				blocks = Arrays.stream(blocks).filter(x -> x != null).toArray(BlockState[]::new);
+				Rect blockLocation = blocks[i].getLocation();
+				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
+				ball.hitBlock(blockLocation, destroyed);
 			}
 		}
 		return ball;
@@ -210,15 +209,7 @@ public class BreakoutState {
 	private boolean hitBlock(BlockState block, int squaredSpeed) {
 		boolean destroyed = true;
 		ArrayList<BlockState> nblocks = new ArrayList<BlockState>();
-//		if (block instanceof NormalBlockState | block instanceof ReplicatorBlockState | block instanceof PowerupBallBlockState) {
-//			return true;
-//		}
-//		// Instance of SturdyBlockState
-//		if (block.blockStateAfterHit(squaredSpeed) == null) {
-//			return true; 
-//			}
-//		block = block.blockStateAfterHit(squaredSpeed);
-//		return false;
+
 		for (BlockState b : blocks) {
 			if (b != block) {
 				nblocks.add(b);
@@ -227,9 +218,10 @@ public class BreakoutState {
 		
 		if (block.blockStateAfterHit(squaredSpeed) != null) {
 			nblocks.add(block.blockStateAfterHit(squaredSpeed));
-			return false;
+			destroyed = false;
 		}
 		
+		blocks = nblocks.toArray(BlockState[]::new);
 		return destroyed;
 	}
 	
