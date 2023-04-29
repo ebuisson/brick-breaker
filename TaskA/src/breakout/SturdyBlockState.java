@@ -24,7 +24,7 @@ public class SturdyBlockState extends BlockState {
 	 * TODO
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
-		if (getLivesLeft() == 1 && squaredSpeed < Constants.BALL_SPEED_THRESH) {
+		if (getLivesLeft() == 1 && squaredSpeed < (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
 			return this;
 		}
 		else if (getLivesLeft() >1) {
