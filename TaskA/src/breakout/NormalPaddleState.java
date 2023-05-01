@@ -14,6 +14,7 @@ public class NormalPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == 1
 	 */
 	public int numberOfBallsAfterHit() {
 		return 1;
@@ -22,6 +23,7 @@ public class NormalPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == this
 	 */
 	public PaddleState stateAfterHit() {
 		return this;
@@ -30,6 +32,7 @@ public class NormalPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result[0] == getCurColor()
 	 */
 	public Color[] getActualColors() {
 		return new Color[] {getCurColor()};
@@ -39,6 +42,10 @@ public class NormalPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result.getCenter() == this.getCenter() 
+	 * @post | result.getPossibleColors() == this.getPossibleColors()
+	 * @post | result.getCurColor() == this.getCurColor()
+	 * @post | result != null
 	 */
 	public PaddleState reproduce(){
 		return new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());	

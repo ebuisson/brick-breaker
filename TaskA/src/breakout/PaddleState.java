@@ -34,8 +34,10 @@ public abstract class PaddleState {
 	 * Construct a paddle located around a given center in the field.
 	 * @pre | center != null
 	 * @pre | possibleColors != null
+	 * @pre | Arrays.stream(possibleColors).allMatch(c -> c != null)
 	 * @pre | possibleColors.length >= 1
-
+	 * @pre | curColor != null
+	 //* @pre | Arrays.stream(possibleColors).anyMatch(c -> c.equals(curColor))
 	 */
 	public PaddleState(Point center, Color[] possibleColors, Color curColor) {
 		this.center = center;
@@ -105,6 +107,7 @@ public abstract class PaddleState {
 
 	/**
 	 * @mutates | this
+	 * @pre | c != null
 	 */
 	public void setCenter(Point c) {
 		center = c;
@@ -130,6 +133,9 @@ public abstract class PaddleState {
 	 * 
 	 * Randomly picks a color in getPossibleColors() and makes it the current color (retrieved with getCurColor()).
 	 * The resulting getCurColor() should still be in getPossibleColors() (see public invar) 
+	 * 
+	 //* @post | Arrays.stream(getPossibleColors()).anyMatch(c -> c.equals(getCurColor()))
+	 * 
 	 */
 	public void tossCurColor() {
 		Random rand = new Random();

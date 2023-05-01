@@ -25,7 +25,7 @@ class BallTest {
 		c152 = new Circle(p15,Constants.INIT_BALL_DIAMETER);
 		v1010 = new Vector(1,1);
 		n1 = new NormalBall(c152, v1010);
-		s1 = new SuperChargedBall(c152, v1010,4);
+		s1 = new SuperChargedBall(c152,v1010,4);
 		n2 = Setups.typicalNormalBall(0);
 		s2 = Setups.typicalSuperBall(0);
 		b2 = Setups.typicalBlocks()[0];
@@ -60,12 +60,13 @@ class BallTest {
 	}
 	
 	@Test
-	void testGetColorSuperBall() {
-		assertEquals(Constants.BALL_FAST_COLOR, s2.getColor());
-	}
-	
-	@Test
-	void testGetColorNormalBall() {
+	void testGetColor() {
+		assertFalse(n2.getVelocity().getSquareLength() > Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH);
+		assertEquals(Constants.BALL_COLOR, n2.getColor());
+		n2.setVelocity(new Vector(10,10));
+		assertTrue(n2.getVelocity().getSquareLength() > Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH);
 		assertEquals(Constants.BALL_FAST_COLOR, n2.getColor());
+		
 	}
+
 }
