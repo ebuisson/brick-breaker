@@ -65,6 +65,7 @@ class PaddleStateTest {
 		assertEquals(replicatingPaddle.getPossibleColors(), replicatingPaddle.getActualColors());
 		normalPaddle.setCurColor(normalPaddle.getPossibleColors()[1]);
 		assertTrue(normalPaddle.getCurColor() == normalPaddle.getPossibleColors()[1]);
+		
 	}
 	
 	@Test

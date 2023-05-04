@@ -13,8 +13,8 @@ class BlockStateTest {
 	
 	private Point BR;
 	private BlockState[] blocks;
-	private SturdyBlockState oneblock;
-	private SturdyBlockState twoblock;
+	private SturdyBlockState onelifeb;
+	private SturdyBlockState twolivesb;
 	private Ball nball;
 	private Ball sball;
 	private Ball[] balls;
@@ -27,8 +27,8 @@ class BlockStateTest {
 	void setUp() throws Exception {
 		BR = new Point(Constants.WIDTH, Constants.HEIGHT);
 		blocks = Setups.typicalBlocks();
-		oneblock = new SturdyBlockState (blocks[1].getLocation(),1);
-		twoblock = new SturdyBlockState (blocks[1].getLocation(),2);
+		onelifeb = new SturdyBlockState (blocks[1].getLocation(),1);
+		twolivesb = new SturdyBlockState (blocks[1].getLocation(),2);
 		paddle = new NormalPaddleState(
 				new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4),
 				Constants.TYPICAL_PADDLE_COLORS(),Constants.TYPICAL_PADDLE_COLORS()[0]);
@@ -45,8 +45,8 @@ class BlockStateTest {
 	void testBlockStateAfterHit() {
 		assertEquals(new SturdyBlockState(blocks[1].getLocation(),3-1).getLocation(), blocks[1].blockStateAfterHit(5).getLocation());
 		assertNotEquals(new SturdyBlockState(blocks[1].getLocation(),3-1).getLivesLeft(), ((SturdyBlockState)blocks[1]).getLivesLeft());
-		assertEquals(oneblock, oneblock.blockStateAfterHit(0));
-		assertEquals(null, oneblock.blockStateAfterHit(100));
+		assertEquals(onelifeb, onelifeb.blockStateAfterHit(0));
+		assertEquals(null, onelifeb.blockStateAfterHit(100));
 		assertEquals(null,blocks[0].blockStateAfterHit(0));
 		
 	}
@@ -68,9 +68,10 @@ class BlockStateTest {
 	@Test
 	void testColor() {
 		assertEquals(new Color(128, 128, 128), blocks[0].getColor());
-		assertEquals(new Color(160, 82, 45), oneblock.getColor());
-		assertEquals(new Color(123, 63, 0), twoblock.getColor());
+		assertEquals(new Color(160, 82, 45), onelifeb.getColor());
+		assertEquals(new Color(123, 63, 0), twolivesb.getColor());
 		assertEquals(new Color(92, 64, 51), blocks[1].getColor());
+		assertEquals(new Color(100, 149, 237), blocks[2].getColor());
 	}
 
 }
