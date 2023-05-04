@@ -66,7 +66,19 @@ class BallTest {
 		n2.setVelocity(new Vector(10,10));
 		assertTrue(n2.getVelocity().getSquareLength() > Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH);
 		assertEquals(Constants.BALL_FAST_COLOR, n2.getColor());
-		
+	}
+	
+//	@Test
+//	void testHitWall() {
+//		assertTrue(n2.hitWall(null))
+//	}
+	
+	@Test
+	void testBackToNormal() {
+		assertTrue(n2.backToNormal() == n2);
+		assertFalse(s2.backToNormal() != s2);
+		assertEquals(s2.getLocation(),s2.backToNormal().getLocation());
+		assertEquals(s2.getVelocity(),s2.backToNormal().getVelocity());
 	}
 
 }

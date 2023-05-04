@@ -79,7 +79,7 @@ class BreakoutStateTest {
 	
 	@Test
 	void testTickNormal() {
-		state.tickDuring(20);
+		state.tickDuring(21);
 		assertEquals(1,state.getBalls().length);
 		Ball b = state.getBalls()[0];
 		assertEquals(new Vector(Setups.typicalNormalBall(0).getVelocity().getX(), Setups.typicalNormalBall(0).getVelocity().getY()) , b.getVelocity());
