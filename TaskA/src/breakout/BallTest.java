@@ -112,4 +112,14 @@ class BallTest {
 		assertEquals(s2.getVelocity(),s2.backToNormal().getVelocity());
 	}
 
+	@Test
+	void testclonevelocity() {
+		assertTrue(n2.getLocation() == n2.cloneWithVelocity(v1010).getLocation());
+		assertTrue(s2.getLocation() == s2.cloneWithVelocity(v1010).getLocation());
+	}
+	
+	@Test
+	void testLifetime() {
+		assertTrue(s1.getLifetime() == 4);
+	}
 }

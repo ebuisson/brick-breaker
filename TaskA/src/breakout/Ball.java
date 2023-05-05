@@ -65,10 +65,16 @@ public abstract class Ball {
 		return getLocation().getCenter();
 	}
 	
+	/**
+	 * @post | getLocation().equals(location)
+	 */
 	public void setLocation(Circle location) {
 		this.location = location;
 	}
 	
+	/**
+	 * @post | getVelocity().equals(velocity)
+	 */
 	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}

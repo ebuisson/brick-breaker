@@ -1,7 +1,5 @@
 package breakout;
 
-
-
 import breakout.utils.*;
 
 public class NormalBall extends Ball {
