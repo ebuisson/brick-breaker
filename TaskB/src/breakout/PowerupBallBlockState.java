@@ -13,6 +13,9 @@ public class PowerupBallBlockState extends NormalBlockState {
 		super(location);
 	}
 
+	/**
+	 * @pre | b != null
+	 */
 	@Override
 	public Ball ballStateAfterHit(Ball b) {
 		int superDiam;
@@ -26,7 +29,7 @@ public class PowerupBallBlockState extends NormalBlockState {
 		return new SuperChargedBall(
 				superLoc,
 				b.getVelocity(),
-				Constants.SUPERCHARGED_BALL_LIFETIME);
+				Constants.SUPERCHARGED_BALL_LIFETIME);		
 	}
 
 	@Override

@@ -65,10 +65,16 @@ public abstract class Ball {
 		return getLocation().getCenter();
 	}
 	
+	/**
+	 * @post | getLocation().equals(location)
+	 */
 	public void setLocation(Circle location) {
 		this.location = location;
 	}
 	
+	/**
+	 * @post | getVelocity().equals(velocity)
+	 */
 	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
@@ -87,7 +93,7 @@ public abstract class Ball {
 	 * @pre | elapsedTime <= Constants.MAX_ELAPSED_TIME
 	 * @post | getLocation().getCenter().equals(old(getLocation()).getCenter().plus(v))
 	 * @post | getLocation().getDiameter() == old(getLocation()).getDiameter()
-	 * @mutates this
+	 * @mutates | this
 	 */
 	public abstract void move(Vector v, int elapsedTime);
 	
@@ -181,7 +187,12 @@ public abstract class Ball {
 	 * 
 	 */
 	public final Color getColor() {
-		return null;
+		if (getVelocity().getSquareLength() > (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
+			return Constants.BALL_FAST_COLOR;
+		}
+		else {
+			return Constants.BALL_COLOR;
+		}
 	}
 	
 	

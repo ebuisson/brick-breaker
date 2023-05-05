@@ -1,5 +1,6 @@
 package breakout;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -65,8 +66,8 @@ public class BreakoutState {
 	 * @throws IllegalArgumentException | blocks == null
 	 * @throws IllegalArgumentException | bottomRight == null
 	 * @throws IllegalArgumentException | paddle == null
-	 * @throws IllegalArgumentException | Arrays.stream(balls).allMatch(b -> b != null)
-	 * @throws IllegalArgumentException | Arrays.stream(blocks).allMatch(b -> b != null)
+	 * @throws IllegalArgumentException | !Arrays.stream(balls).allMatch(b -> b != null)
+	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> b != null)
 	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(bottomRight)
 	 * @throws IllegalArgumentException | !(new Rect(Constants.ORIGIN,bottomRight)).contains(paddle.getLocation())
 	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> (new Rect(Constants.ORIGIN,bottomRight)).contains(b.getLocation()))
@@ -180,14 +181,24 @@ public class BreakoutState {
 	 * TODO
 	 */
 	private Ball collideBallBlocks(Ball ball) {
-		return null;
+		for(int i=0; i<blocks.length; i++) {
+			if (ball.collidesWith(blocks[i].getLocation())) {
+				paddle = blocks[i].paddleStateAfterHit(paddle);
+				BlockState blockClone = blocks[i];
+				boolean destroyed = hitBlock(blocks[i],ball.getVelocity().getSquareLength());
+				ball.hitBlock(blockClone.getLocation(), destroyed);
+				ball = blockClone.ballStateAfterHit(ball);
+			}
+		}
+		return ball;
+			
 	}
 
 	/**
 	 * TODO
 	 * 
 	 * "Hits" the block argument once with a ball having speed sqrt(squaredSpeed).
-	 * This can result in the block being destructed, i.e. not tracked in getBlocks() (returns ture in that case).
+	 * This can result in the block being destructed, i.e. not tracked in getBlocks() (returns true in that case).
 	 * Or no destruction occurs; in this case the block is updated instead of being removed. (returns false in that case).
 	 * 
 	 * Does not affect the balls.
@@ -197,7 +208,19 @@ public class BreakoutState {
 	private boolean hitBlock(BlockState block, int squaredSpeed) {
 		boolean destroyed = true;
 		ArrayList<BlockState> nblocks = new ArrayList<BlockState>();
-		//...
+
+		for (BlockState b : blocks) {
+			if (b != block) {
+				nblocks.add(b);
+			}
+		}
+		
+		if (block.blockStateAfterHit(squaredSpeed) != null) {
+			nblocks.add(block.blockStateAfterHit(squaredSpeed));
+			destroyed = false;
+		}
+		
+		blocks = nblocks.toArray(BlockState[]::new);
 		return destroyed;
 	}
 	

@@ -1,7 +1,5 @@
 package breakout;
 
-
-
 import breakout.utils.*;
 
 public class NormalBall extends Ball {
@@ -15,8 +13,8 @@ public class NormalBall extends Ball {
 	 * 
 	 * @pre | rect != null
 	 * @pre | collidesWith(rect)
-	 * @post | getLocation().equals(old(getLocation()))
-	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation()))))
+	 * @post | getCenter().equals( old(getCenter() ))
+	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() ))
 	 * @mutates this
 	 */
 	@Override
@@ -59,9 +57,10 @@ public class NormalBall extends Ball {
 	@Override
 	/**
 	 * TODO
+	 * @result == this
 	 */
 	public Ball backToNormal() {
-		return null;
+		return this;
 	}
 
 }

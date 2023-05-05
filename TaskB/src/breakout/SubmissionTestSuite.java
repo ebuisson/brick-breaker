@@ -89,8 +89,7 @@ class SubmissionTestSuite {
 		//400 ms suffice for a slow ball to hit the block
 		bstate.tickDuring(400);
 		assertTrue( bstate.getBalls()[0].getVelocity().getX() <= 0);
-		assertTrue( bstate.getBlocks().length == 3);
-				
+		assertTrue( bstate.getBlocks().length == 3);			
 	}
 	
 	@Test
@@ -142,8 +141,7 @@ class SubmissionTestSuite {
 		assertTrue( bstate.getBlocks().length == 3);
 		
 		SuperChargedBall superBall = (SuperChargedBall) bstate.getBalls()[0];
-		assertEquals( Constants.INIT_BALL_DIAMETER + 600 , superBall.getLocation().getDiameter() ); 
-				
+		assertEquals( Constants.INIT_BALL_DIAMETER + 600 , superBall.getLocation().getDiameter() ); 			
 	}
 	
 	@Test

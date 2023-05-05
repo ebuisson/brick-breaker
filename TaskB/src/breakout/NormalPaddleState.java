@@ -14,34 +14,41 @@ public class NormalPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == 1
 	 */
 	public int numberOfBallsAfterHit() {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	/**
 	 * TODO
+	 * @post | result == this
 	 */
 	public PaddleState stateAfterHit() {
-		return null;
+		return this;
 	}
 	
 	@Override
 	/**
 	 * TODO
+	 * @post | result[0] == getCurColor()
 	 */
 	public Color[] getActualColors() {
-		return null;
+		return new Color[] {getCurColor()};
 		
 	}
 	
 	@Override
 	/**
 	 * TODO
+	 * @post | result.getCenter() == this.getCenter() 
+	 * @post | result.getPossibleColors() == this.getPossibleColors()
+	 * @post | result.getCurColor() == this.getCurColor()
+	 * @post | result != null
 	 */
-	public PaddleState reproduce() {
-		return null;	
+	public PaddleState reproduce(){
+		return new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());	
 	}
 	
 	/**
@@ -55,7 +62,5 @@ public class NormalPaddleState extends PaddleState {
 		return true;
 		
 	}
-
-	
 
 }

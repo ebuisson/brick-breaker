@@ -1,6 +1,8 @@
 package breakout;
 
 import java.awt.Color;
+import java.util.Arrays;
+
 import breakout.utils.Rect;
 
 public class NormalBlockState extends BlockState {
@@ -19,6 +21,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == null
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
 		return null;
@@ -27,17 +30,19 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == ballState
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
-		return null;
+		return ballState;
 	}
 
 	@Override
 	/**
 	 * TODO
+	 * @post | result == paddleState
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
-		return null;
+		return paddleState;
 	}
 
 	@Override

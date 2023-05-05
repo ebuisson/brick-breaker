@@ -7,7 +7,7 @@ import breakout.utils.*;
 /**
  * Represents the state of a ball in the breakout game.
  * 
- * @invar | liftetime >= 0
+ * @invar | getLifetime() >= 0
  */
 
 public class SuperChargedBall extends NormalBall {
