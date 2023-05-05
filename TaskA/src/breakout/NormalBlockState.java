@@ -21,6 +21,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == null
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
 		return null;
@@ -29,6 +30,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == ballState
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
 		return ballState;
@@ -37,6 +39,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == paddleState
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
 		return paddleState;

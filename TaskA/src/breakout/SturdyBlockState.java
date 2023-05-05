@@ -22,7 +22,7 @@ public class SturdyBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
-	 * 
+	 * @pre | squaredSpeed >= 0
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
 		if (getLivesLeft() == 1 && squaredSpeed < (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
@@ -39,6 +39,7 @@ public class SturdyBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == ballState
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
 		return ballState;
@@ -47,6 +48,7 @@ public class SturdyBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @post | result == paddleState
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
 		return paddleState;

@@ -13,6 +13,9 @@ public class PowerupBallBlockState extends NormalBlockState {
 		super(location);
 	}
 
+	/**
+	 * @pre | b != null
+	 */
 	@Override
 	public Ball ballStateAfterHit(Ball b) {
 		int superDiam;

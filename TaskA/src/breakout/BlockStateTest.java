@@ -55,6 +55,8 @@ class BlockStateTest {
 	void testBallStateAfterHit() {
 		assertEquals(nball,blocks[0].ballStateAfterHit(nball));
 		assertEquals(nball,blocks[1].ballStateAfterHit(nball));
+		assertEquals(nball,blocks[2].ballStateAfterHit(nball));
+		assertNotEquals(nball,blocks[3].ballStateAfterHit(nball));
 		
 	}
 	
@@ -62,7 +64,8 @@ class BlockStateTest {
 	void testPaddleStateAfterHit() {
 		assertEquals(paddle,blocks[0].paddleStateAfterHit(paddle));
 		assertEquals(paddle,blocks[1].paddleStateAfterHit(paddle));
-		
+		assertNotEquals(paddle,blocks[2].paddleStateAfterHit(paddle));
+		assertEquals(paddle,blocks[3].paddleStateAfterHit(paddle));
 	}
 	
 	@Test
