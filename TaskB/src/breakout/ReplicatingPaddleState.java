@@ -30,9 +30,9 @@ public class ReplicatingPaddleState extends PaddleState {
 		return count;
 	}
 
-	public ReplicatingPaddleState(Point center, Color[] possCols, Color curColor, int count) {
+	public ReplicatingPaddleState(Point center, Color[] possibleColors, Color curColor, int count) {
 		super(center,
-				new Color[] { possCols[2], possCols[1], possCols[1] },
+				possibleColors,
 				curColor);
 		this.count = count;
 	}

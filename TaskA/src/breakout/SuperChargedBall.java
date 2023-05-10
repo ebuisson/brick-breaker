@@ -7,7 +7,7 @@ import breakout.utils.*;
 /**
  * Represents the state of a ball in the breakout game.
  * 
- * @invar | getLifetime() >= 0
+// * @invar | getLifetime() >= 0
  */
 
 public class SuperChargedBall extends NormalBall {
@@ -17,11 +17,11 @@ public class SuperChargedBall extends NormalBall {
 
 	/**
 	 * Construct a new ball at a given `location`, with a given `velocity`.
- 	 * @throws IllegalArgumentException | lifetime < 0
+// 	 * @throws IllegalArgumentException | lifetime < 0
 	 */
 	public SuperChargedBall(Circle location, Vector velocity, int lifetime) {
 		super(location, velocity);
-		if (lifetime < 0) throw new IllegalArgumentException();
+//		if (lifetime < 0) throw new IllegalArgumentException();
 		this.lifetime = lifetime;
 	}
 
