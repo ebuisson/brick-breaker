@@ -106,8 +106,8 @@ class BallTest {
 	
 	@Test
 	void testBackToNormal() {
-		assertTrue(n2.backToNormal() == n2);
-		assertFalse(s2.backToNormal() == s2);
+		assertEquals(n2.backToNormal(), n2);
+		assertEquals(s2.backToNormal(), s2);
 		assertEquals(s2.getLocation(),s2.backToNormal().getLocation());
 		assertEquals(s2.getVelocity(),s2.backToNormal().getVelocity());
 	}
