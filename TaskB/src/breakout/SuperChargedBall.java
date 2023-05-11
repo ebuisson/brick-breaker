@@ -8,6 +8,7 @@ import breakout.utils.*;
  * Represents the state of a ball in the breakout game.
  * 
  * @invar | getLifetime() >= 0
+ * @invar | getLifetime() <= 10000
  */
 
 public class SuperChargedBall extends NormalBall {
@@ -39,7 +40,7 @@ public class SuperChargedBall extends NormalBall {
 		if(lifetime < 0 || !destroyed) { //bounces if normal ball again, or sturdy block
 			super.hitBlock(rect, destroyed);
 		}
-		if (getLocation().getDiameter() >= Constants.INIT_BALL_DIAMETER + 300) {
+		if (getLocation().getDiameter() >= Constants.INIT_BALL_DIAMETER + 100) {
 			setLocation( new Circle ( getCenter() , getLocation().getDiameter() - 100));
 		}
 	}
@@ -50,6 +51,7 @@ public class SuperChargedBall extends NormalBall {
 	 */
 	public void hitPaddle(Rect loc, Vector paddleVel) {
 		super.hitPaddle(loc, paddleVel);
+		setLocation( new Circle ( getCenter() , getLocation().getDiameter() + 100));
 	}
 
 	@Override
@@ -84,7 +86,12 @@ public class SuperChargedBall extends NormalBall {
 	 * @post | result.getVelocity() == getVelocity()
 	 */
 	public Ball backToNormal() {
-		return new NormalBall(getLocation(), getVelocity());
+		if (lifetime <= 0) {
+			return new NormalBall(getLocation(), getVelocity());
+		}
+		else {
+			return this.clone();
+		}
 	}
 
 }

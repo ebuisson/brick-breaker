@@ -46,7 +46,7 @@ class TaskBTestSuite {
 				new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4),
 				Constants.TYPICAL_PADDLE_COLORS(),Constants.TYPICAL_PADDLE_COLORS()[0]);
 		reppaddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
-				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 4);
+				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 1);
 		n0 = Setups.typicalNormalBall(0);
 		n4 = Setups.typicalNormalBall(4);
 		s4 = Setups.typicalSuperBall(4);
@@ -63,18 +63,45 @@ class TaskBTestSuite {
 	
 	@Test
 	void replicatingPaddleLifetimeTest() {
-		
+		assertInstanceOf(NormalPaddleState.class, reppaddle.stateAfterHit());
 	}
 	
+	@Test
+	void superChargedBallLifetimeTest() {
+		Ball[] superball = new Ball[] {s4};
+		BreakoutState state1 = new BreakoutState(superball, blocks, BR, paddle);
+		state1.tickDuring(10000);
+		assertNotEquals(SuperChargedBall.class, state1.getBalls()[0].getClass());
+	}
 	
+	@Test
+	//A supercharged ball can have a diameter reduced to INIT_BALL_DIAMETER
+	void superChargedBallDiameterMinTest() {
+		s0.setLocation(new Circle(s0.getCenter(), Constants.INIT_BALL_DIAMETER+100));
+		Ball[] superball = new Ball[] {s0};
+		BreakoutState state1 = new BreakoutState(superball, blocks, BR, paddle);
+		state1.tickDuring(500);
+		assertEquals(s0.getLocation().getDiameter()-100, state1.getBalls()[0].getLocation().getDiameter());
+	}
+	
+	@Test
+	//A supercharged ball increases diameter by 100 after a paddle hit
+	void superChargedBallDiameterPaddleTest() {
+		s0.setPosition(new Point(25000,21000));
+		s0.setVelocity(new Vector(0,50));
+		Ball[] ball = new Ball[] {s0};
+		BreakoutState state1 = new BreakoutState(ball, blocks, BR, paddle);
+		state1.tickDuring(100);
+		assertEquals(s0.getLocation().getDiameter()+100, state1.getBalls()[0].getLocation().getDiameter());
+	}
 	
 	// @Test
 	// Supercharged ball must have a large diameter
 	
-	@Test
-	void dummyTest() {
-		assertTrue(false);
-	}
+//	@Test
+//	void dummyTest() {
+//		assertTrue(false);
+//	}
 	
 
 

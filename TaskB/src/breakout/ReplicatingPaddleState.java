@@ -42,11 +42,11 @@ public class ReplicatingPaddleState extends PaddleState {
 	 */
 	@Override
 	public PaddleState stateAfterHit() {
-		if (count > 2) {
+		if (count > 1) {
 			return this;
 		} else {
 			PaddleState res =
-					new ReplicatingPaddleState(getCenter(), getPossibleColors(), getCurColor(), 1);
+					new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());
 			return res;
 		}
 	}

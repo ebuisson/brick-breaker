@@ -353,7 +353,7 @@ public class BreakoutState {
 	
 	private void noLongerSuperCharged() {
 		for (int i = 0 ; i < balls.length ; i++) {
-			balls[i] = balls[i].clone();
+			balls[i] = balls[i].backToNormal();
 		}
 	}
 
