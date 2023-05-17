@@ -12,6 +12,7 @@ import java.util.Random;
  * Represents the state of a paddle in the breakout game.
  * @invar | getCenter() != null
  * @invar | getPossibleColors() != null
+ * @invar | getCurColor() != null
  */
 public abstract class PaddleState {
 	
@@ -25,7 +26,9 @@ public abstract class PaddleState {
 	 */
 	private final Color[] possibleColors;
 	
-
+	/**
+	 * @invar | curColor != null
+	 */
 	private Color curColor;
 
 	/**
@@ -35,9 +38,9 @@ public abstract class PaddleState {
 	 * @pre | center != null
 	 * @pre | possibleColors != null
 	 * @pre | Arrays.stream(possibleColors).allMatch(c -> c != null)
-	 * @pre | possibleColors.length >= 1
+	 * @pre | possibleColors.length == 1 || possibleColors.length == 3
 	 * @pre | curColor != null
-	 //* @pre | Arrays.stream(possibleColors).anyMatch(c -> c.equals(curColor))
+	 * @pre | Arrays.stream(possibleColors).anyMatch(c -> c.equals(curColor))
 	 */
 	public PaddleState(Point center, Color[] possibleColors, Color curColor) {
 		this.center = center;
@@ -92,8 +95,9 @@ public abstract class PaddleState {
 	/**
 	 * Returns the number of generated balls + 1 (the ball that is bouncing on the paddle).
 	 * 
-	 * @post | result > 0
+	 * @post | result >= 1
 	 * @post | result <=  Constants.MAX_BALL_REPLICAS + 1
+	 * 
 	 */
 	public abstract int numberOfBallsAfterHit();
 
@@ -102,12 +106,16 @@ public abstract class PaddleState {
 	 * 
 	 * @post | result != null
 	 * @post | result.getLocation().equals(getLocation())
+	 * @creates | result
 	 */
 	public abstract PaddleState stateAfterHit();
 
 	/**
 	 * @mutates | this
 	 * @pre | c != null
+	 * @post | Constants.ORIGIN.isUpAndLeftFrom(c)
+	 * @post | c.isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))
+	 * @post | getCenter().equals(c)
 	 */
 	public void setCenter(Point c) {
 		center = c;
@@ -134,7 +142,7 @@ public abstract class PaddleState {
 	 * Randomly picks a color in getPossibleColors() and makes it the current color (retrieved with getCurColor()).
 	 * The resulting getCurColor() should still be in getPossibleColors() (see public invar) 
 	 * 
-	 //* @post | Arrays.stream(getPossibleColors()).anyMatch(c -> c.equals(getCurColor()))
+	 * @post | Arrays.stream(getPossibleColors()).anyMatch(c -> c.equals(getCurColor()))
 	 * 
 	 */
 	public void tossCurColor() {
@@ -148,11 +156,23 @@ public abstract class PaddleState {
 	 * @creates | result
 	 * 
 	 * a copy of the paddle at hand.
+	 * @post | result.equals(this)
 	 */
 	public abstract PaddleState reproduce();
 	
+	/**
+	 * 
+	 * @pre | other != null
+	 // * @post | other.equals(this) ? result == TRUE : result == FALSE
+	 */
 	public abstract boolean equalContent(PaddleState other);
 
+	/**
+	 * 
+	 * @pre | curColor != null
+	 * @pre | Arrays.stream(getPossibleColors()).anyMatch(c -> c.equals(curColor))
+	 * @post | getCurColor() == curColor
+	 */
 	public void setCurColor(Color curColor) {
 		this.curColor = curColor;
 	}

@@ -9,12 +9,14 @@ public class ReplicatingPaddleState extends PaddleState {
 	
 	/**
 	 * count = the number of balls that will be generated upon hitting this paddle + 1.
-	 * @invar | count > 0
+	 * @invar | count >= 1 && count <= 4
 	 */
 	private int count;
 
 	@Override
 	/**
+	 * @post | result == getCount()
+	 * @post | result >= 1 && result <= 4
 	 */
 	public int numberOfBallsAfterHit() {
 		return count;
@@ -22,12 +24,22 @@ public class ReplicatingPaddleState extends PaddleState {
 	
 	/**
 	 * Returns the remaining amount of ball replications this paddle will perform + 1
-	 * @post | result > 0
+	 * @post | result >= 1 && result <= 4
 	 */
 	public int getCount() {
 		return count;
 	}
-
+	
+	/**
+	 * @pre | center != null
+	 * @pre | possibleColors != null
+	 * @pre | Arrays.stream(possibleColors).allMatch(c -> c != null)
+	 * @pre | possibleColors.length == 1 || possibleColors.length == 3
+	 * @pre | curColor != null
+	 * @pre | Arrays.stream(possibleColors).anyMatch(c -> c.equals(curColor))
+	 * @pre | count >= 1 && count <=4
+	 * 
+	 */
 	public ReplicatingPaddleState(Point center, Color[] possibleColors, Color curColor, int count) {
 		super(center,
 				possibleColors,
@@ -36,7 +48,15 @@ public class ReplicatingPaddleState extends PaddleState {
 	}
 
 	/**
-	 * @pre | this.getCount() >= 0
+	 * @pre | this.getCount() >= 1
+	 * @pre | this.getCenter() != null
+	 * @pre | this.getPossibleColors() != null
+	 * @pre | this.getCurColor() != null
+	 * @post | result.getCenter() == this.getCenter()
+	 * @post | this.getPossibleColors() == this.getPossibleColors()
+	 * @post | this.getCurColor() == this.getCurColor()
+	 * 
+	 * @creates | result
 	 */
 	@Override
 	public PaddleState stateAfterHit() {
@@ -60,11 +80,17 @@ public class ReplicatingPaddleState extends PaddleState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | this.getCount() >= 1
+	 * @pre | this.getCenter() != null
+	 * @pre | this.getPossibleColors() != null
+	 * @pre | this.getCurColor() != null
 	 * @post | result.getCenter() == this.getCenter() 
 	 * @post | ((ReplicatingPaddleState)result).getActualColors() == this.getActualColors()
 	 * @post | result.getCurColor() == this.getCurColor()
 	 * @post | ((ReplicatingPaddleState)result).getCount() == this.getCount()
 	 * @post | result != null
+	 * 
+	 * @creates | result
 	 */
 	public PaddleState reproduce() {
 		return new ReplicatingPaddleState(getCenter(), getActualColors(), getCurColor(), getCount());

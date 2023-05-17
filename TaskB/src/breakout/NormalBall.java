@@ -15,7 +15,7 @@ public class NormalBall extends Ball {
 	 * @pre | collidesWith(rect)
 	 * @post | getCenter().equals( old(getCenter() ))
 	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() ))
-	 * @mutates this
+	 * @mutates | this
 	 */
 	@Override
 	public void hitBlock(Rect rect, boolean destroyed) {
@@ -41,14 +41,24 @@ public class NormalBall extends Ball {
 		else { setVelocity( nspeed ); };
 	}
 	
-
-
+	/**
+	 * @pre | rect != null
+	 * @pre | collidesWith(rect)
+	 * @post | getLocation().equals(old(getLocation()))
+	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation()))))
+	 * @mutates | this
+	 */
 	@Override
 	public void hitWall(Rect rect) {
 		setVelocity( bounceOn( rect ) );
 	}
 
-
+	/**
+	 * @pre | v != null
+	 * @post | this.getLocation() == result.getLocation()
+	 * @post | result.getVelocity() == v
+	 * @creates | result
+	 */
 	@Override
 	public Ball cloneWithVelocity(Vector v) {
 		return new NormalBall(getLocation(), v);
@@ -57,7 +67,7 @@ public class NormalBall extends Ball {
 	@Override
 	/**
 	 * TODO
-	 * @result == this
+	 * @post | result == this
 	 */
 	public Ball backToNormal() {
 		return this.clone();

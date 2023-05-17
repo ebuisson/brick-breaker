@@ -31,12 +31,18 @@ public abstract class Ball {
 	 * Construct a new ball at a given `location`, with a given `velocity`.
  	 * @throws IllegalArgumentException | location == null
  	 * @throws IllegalArgumentException | velocity == null
+ 	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())
+	 * @throws IllegalArgumentException | !location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))
+	 * @throws IllegalArgumentException | location.getDiameter() < Constants.INIT_BALL_DIAMETER
  	 * @post | getLocation().equals(location)
  	 * @post | getVelocity().equals(velocity)
 	 */
 	public Ball(Circle location, Vector velocity) throws IllegalArgumentException {
 		if (location == null) throw new IllegalArgumentException();
 		if (velocity == null) throw new IllegalArgumentException();
+		if (!Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())) throw new IllegalArgumentException();
+		if (!location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))) throw new IllegalArgumentException();
+		if (location.getDiameter() < Constants.INIT_BALL_DIAMETER) throw new IllegalArgumentException();
 		this.location = location; //OK since Circle is immutable
 		this.velocity = velocity; //same
 	}
@@ -59,13 +65,13 @@ public abstract class Ball {
 	/**
 	 * Return this ball's center.
 	 * 
-	 * @post | getLocation().getCenter().equals(result)
 	 */
 	public Point getCenter() {
 		return getLocation().getCenter();
 	}
 	
 	/**
+	 * @pre | location != null
 	 * @post | getLocation().equals(location)
 	 */
 	public void setLocation(Circle location) {
@@ -73,16 +79,20 @@ public abstract class Ball {
 	}
 	
 	/**
+	 * @pre | velocity != null
 	 * @post | getVelocity().equals(velocity)
 	 */
 	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
 	
+	/**
+	 * @pre | pos != null
+	 * @post | getLocation().getCenter().equals(pos)
+	 */
 	public void setPosition(Point pos) {
 		this.location = new Circle( pos, this.location.getDiameter() );
 	}
-	
 
 	
 	/**
@@ -146,8 +156,9 @@ public abstract class Ball {
 	 * Can change the velocity, and the diameter but not the center of the ball.
 	 * 
 	 * @pre | collidesWith(rect)
+	 * @pre | rect != null
 	 * @post | getCenter() .equals( old( getCenter() ) )
-	 * @mutates this
+	 * @mutates | this
 	 */
 	public abstract void hitBlock(Rect rect, boolean destroyed);
 
@@ -158,7 +169,7 @@ public abstract class Ball {
 	 * @pre | collidesWith(rect)
 	 * @pre | paddleVel != null
 	 * @post | getCenter().equals(old(getCenter()))
-	 * @mutates this
+	 * @mutates | this
 	 */
 	public abstract void hitPaddle(Rect rect, Vector paddleVel);
 
@@ -168,7 +179,7 @@ public abstract class Ball {
 	 * @pre | rect != null
 	 * @pre | collidesWith(rect)
 	 * @post | getLocation().equals(old(getLocation()))
-	 * @mutates this
+	 * @mutates | this
 	 */
 	public abstract void hitWall(Rect rect);
 	
@@ -184,7 +195,9 @@ public abstract class Ball {
 	 * TODO
 	 * 
 	 * Return the color this ball should be painted in.
-	 * 
+	 * @pre | getVelocity() != null
+	 * @pre | getVelocity().getSquareLength() > 0 
+	 * @post | getVelocity().getSquareLength() > (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH) ? result == Constants.BALL_FAST_COLOR : result == Constants.BALL_COLOR
 	 */
 	public final Color getColor() {
 		if (getVelocity().getSquareLength() > (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
@@ -221,8 +234,9 @@ public abstract class Ball {
 	/**
 	 * Return a clone of this BallState with the given velocity.
 	 * 
-	 * @inspects this
-	 * @creates result
+	 * @inspects | this
+	 * @creates | result
+	 * @pre | v != null
 	 * @post | result.getLocation().equals(getLocation())
 	 * @post | result.getVelocity().equals(v)
 	 */
@@ -231,8 +245,8 @@ public abstract class Ball {
 	/**
 	 * Return a clone of this BallState.
 	 * 
-	 * @inspects this
-	 * @creates result
+	 * @inspects | this
+	 * @creates | result
 	 * @post | result.getLocation().equals(getLocation())
 	 * @post | result.getVelocity().equals(getVelocity())
 	 */

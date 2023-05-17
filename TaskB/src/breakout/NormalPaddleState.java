@@ -7,6 +7,7 @@ import breakout.utils.*;
 
 public class NormalPaddleState extends PaddleState {
 
+	
 	public NormalPaddleState(Point center, Color[] possColors, Color curColor) {
 		super(center, possColors, curColor);
 	}
@@ -33,6 +34,7 @@ public class NormalPaddleState extends PaddleState {
 	/**
 	 * TODO
 	 * @post | result[0] == getCurColor()
+	 * @post | result.length == 1
 	 */
 	public Color[] getActualColors() {
 		return new Color[] {getCurColor()};
