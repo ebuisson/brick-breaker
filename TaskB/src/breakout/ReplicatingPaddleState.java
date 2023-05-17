@@ -9,13 +9,12 @@ public class ReplicatingPaddleState extends PaddleState {
 	
 	/**
 	 * count = the number of balls that will be generated upon hitting this paddle + 1.
-	 * @invar | count >= 0
+	 * @invar | count > 0
 	 */
 	private int count;
 
 	@Override
 	/**
-	 * @post | result == getCount()
 	 */
 	public int numberOfBallsAfterHit() {
 		return count;
@@ -23,8 +22,7 @@ public class ReplicatingPaddleState extends PaddleState {
 	
 	/**
 	 * Returns the remaining amount of ball replications this paddle will perform + 1
-	 * @post | result == numberOfBallsAfterHit()
-	 * @post | result >= 0
+	 * @post | result > 0
 	 */
 	public int getCount() {
 		return count;
@@ -42,12 +40,10 @@ public class ReplicatingPaddleState extends PaddleState {
 	 */
 	@Override
 	public PaddleState stateAfterHit() {
-		if (count > 1) {
-			return this;
+		if (count > 2) {
+			return new ReplicatingPaddleState(getCenter(), getPossibleColors(), getCurColor(), getCount()-1);
 		} else {
-			PaddleState res =
-					new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());
-			return res;
+			return new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());
 		}
 	}
 	
