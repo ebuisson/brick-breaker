@@ -63,6 +63,15 @@ class TaskBTestSuite {
 	}
 	
 	@Test
+	//Replicating paddle loses a count after a hit 
+	void replicatingPaddleHitsTest() {
+		ReplicatingPaddleState paddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
+				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 4);
+		assertEquals(paddle.getCount()-1, ((ReplicatingPaddleState)paddle.stateAfterHit()).getCount());
+		
+	}
+	
+	@Test
 	//A replicating paddle with 1 life left becomes a normal paddle after next hit
 	void replicatingPaddleLifetimeTest() {
 		assertInstanceOf(NormalPaddleState.class, reppaddle.stateAfterHit());
@@ -97,6 +106,12 @@ class TaskBTestSuite {
 		state1.tickDuring(100);
 		assertEquals(s0.getLocation().getDiameter()+100, state1.getBalls()[0].getLocation().getDiameter());
 	}
+	
+	@Test
+	//Balls spawn from spot locations
+	void ballsSpawnTest() {}
+	
+
 	
 	
 //	@Test

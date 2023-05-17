@@ -240,8 +240,9 @@ public class BreakoutState {
 					balls[i] = curballs[i];
 				}
 				for(int i = 1; i < nrBalls; ++i) {
-					Ball newBall = new NormalBall( ball.getLocation() , ball.getVelocity() );
-					newBall .setPosition( ball.getCenter() .plus( new Vector(i * 500 , 0)));
+					Ball newBall = ball.cloneWithVelocity(ball.getVelocity());
+					newBall.setPosition(Constants.REPL_SOURCE[i-1]);
+							//.plus( new Vector(i * 500 , 0)));
 					balls[curballs.length + i -1] = newBall;
 				}
 			}
