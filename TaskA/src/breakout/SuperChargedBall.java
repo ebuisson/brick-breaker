@@ -80,11 +80,18 @@ public class SuperChargedBall extends NormalBall {
 	@Override
 	/**
 	 * TODO
-	 * @post | result.getLocation() == getLocation()
+	 * @post | result.getCenter() == getCenter()
+	 * @post | result.getLocation().getDiameter() == Constants.INIT_BALL_DIAMETER || 
+	 * 		| result.getLocation().getDiameter() == getLocation().getDiameter()
 	 * @post | result.getVelocity() == getVelocity()
 	 */
 	public Ball backToNormal() {
-		return new NormalBall(getLocation(), getVelocity());
+		if (lifetime <= 0) {
+			return new NormalBall(new Circle(getCenter(), Constants.INIT_BALL_DIAMETER), getVelocity());
+		}
+		else {
+			return this.clone();
+		}
 	}
 
 }

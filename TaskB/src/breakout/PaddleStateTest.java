@@ -17,6 +17,7 @@ class PaddleStateTest {
 
 	private NormalPaddleState normalPaddle;
 	private ReplicatingPaddleState replicatingPaddle;
+	private ReplicatingPaddleState reppaddle;
 	Vector vector;
 	Rect rect;
 	
@@ -31,6 +32,8 @@ class PaddleStateTest {
 				new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4),
 				Constants.TYPICAL_PADDLE_COLORS(),
 				Constants.TYPICAL_PADDLE_COLORS()[0], 4);
+		reppaddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
+				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 2);
 		vector = new Vector(-100,0);
 		rect = new Rect(Constants.ORIGIN, new Point(Constants.WIDTH, Constants.HEIGHT));
 	}
@@ -50,7 +53,7 @@ class PaddleStateTest {
 	@Test
 	void testNumberOfBallsAfterHit() {
 		assertEquals(1, normalPaddle.numberOfBallsAfterHit());
-		//assertEquals(4, replicatingPaddle.numberOfBallsAfterHit());
+		assertEquals(4, replicatingPaddle.numberOfBallsAfterHit());
 	}
 	
 	@Test
@@ -64,7 +67,8 @@ class PaddleStateTest {
 		assertEquals(normalPaddle.getCurColor(), normalPaddle.getActualColors()[0]);
 		assertEquals(replicatingPaddle.getPossibleColors(), replicatingPaddle.getActualColors());
 		normalPaddle.setCurColor(normalPaddle.getPossibleColors()[1]);
-		assertTrue(normalPaddle.getCurColor() == normalPaddle.getPossibleColors()[1]);
+		assertTrue(normalPaddle.getActualColors()[0] == normalPaddle.getCurColor());
+		assertTrue(normalPaddle.getActualColors().length == 1);
 		
 	}
 	
@@ -73,11 +77,19 @@ class PaddleStateTest {
 		assertEquals(normalPaddle.getCenter(), normalPaddle.reproduce().getCenter());
 		assertEquals(normalPaddle.getPossibleColors(), normalPaddle.reproduce().getPossibleColors());
 		assertEquals(normalPaddle.getCurColor(), normalPaddle.reproduce().getCurColor());
-//		assertEquals(replicatingPaddle.getCenter(), replicatingPaddle.reproduce().getCenter());
-//		assertEquals(replicatingPaddle.getActualColors(), replicatingPaddle.reproduce().getActualColors());
-//		assertEquals(replicatingPaddle.getCurColor(), replicatingPaddle.reproduce().getCurColor());
-//		assertEquals(replicatingPaddle.getCount(), ((ReplicatingPaddleState)replicatingPaddle.reproduce()).getCount());
+		assertEquals(replicatingPaddle.getCenter(), replicatingPaddle.reproduce().getCenter());
+		assertEquals(replicatingPaddle.getActualColors(), replicatingPaddle.reproduce().getActualColors());
+		assertEquals(replicatingPaddle.getCurColor(), replicatingPaddle.reproduce().getCurColor());
+		assertEquals(replicatingPaddle.getCount(), ((ReplicatingPaddleState)replicatingPaddle.reproduce()).getCount());
 		
+	}
+	
+	@Test
+	void replicatingPaddleHitsTest() {
+		assertInstanceOf(NormalPaddleState.class, reppaddle.stateAfterHit());
+		ReplicatingPaddleState paddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
+				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 4);
+		assertEquals(paddle.getCount()-1, ((ReplicatingPaddleState)paddle.stateAfterHit()).getCount());
 	}
 	
 }

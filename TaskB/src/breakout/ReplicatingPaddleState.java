@@ -63,7 +63,9 @@ public class ReplicatingPaddleState extends PaddleState {
 		if (count > 2) {
 			return new ReplicatingPaddleState(getCenter(), getPossibleColors(), getCurColor(), getCount()-1);
 		} else {
-			return new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());
+			NormalPaddleState res = new NormalPaddleState(getCenter(), getPossibleColors(), getCurColor());
+			res.tossCurColor();
+			return res;
 		}
 	}
 	

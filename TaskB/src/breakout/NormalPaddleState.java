@@ -35,6 +35,7 @@ public class NormalPaddleState extends PaddleState {
 	 * TODO
 	 * @post | result[0] == getCurColor()
 	 * @post | result.length == 1
+	 * @post | result != null
 	 */
 	public Color[] getActualColors() {
 		return new Color[] {getCurColor()};
