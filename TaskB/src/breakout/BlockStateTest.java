@@ -15,6 +15,8 @@ class BlockStateTest {
 	private BlockState[] blocks;
 	private SturdyBlockState onelifeb;
 	private SturdyBlockState twolivesb;
+	private NormalBlockState normal;
+	private ReplicatorBlockState replicator;
 	private Ball nball;
 	private Ball sball;
 	private Ball[] balls;
@@ -38,6 +40,8 @@ class BlockStateTest {
 		state = new BreakoutState(balls, blocks, BR, paddle);
 		stateWon = new BreakoutState(balls,new BlockState[] {},BR,paddle);
 		stateDead = new BreakoutState(new Ball[] {}, blocks, BR, paddle);
+		normal = new NormalBlockState (blocks[1].getLocation());
+		replicator = new ReplicatorBlockState (blocks[1].getLocation());
 		
 	}
 
@@ -48,6 +52,8 @@ class BlockStateTest {
 		assertEquals(onelifeb, onelifeb.blockStateAfterHit(0));
 		assertEquals(null, onelifeb.blockStateAfterHit(100));
 		assertEquals(null,blocks[0].blockStateAfterHit(0));
+		assertEquals(null,normal.blockStateAfterHit(0));
+		assertEquals(null,replicator.blockStateAfterHit(0));
 		
 	}
 	
@@ -69,7 +75,7 @@ class BlockStateTest {
 	}
 	
 	@Test
-	void testColor() {
+	void testGetColor() {
 		assertEquals(new Color(128, 128, 128), blocks[0].getColor());
 		assertEquals(new Color(160, 82, 45), onelifeb.getColor());
 		assertEquals(new Color(123, 63, 0), twolivesb.getColor());
