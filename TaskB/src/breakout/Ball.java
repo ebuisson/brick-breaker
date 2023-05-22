@@ -200,7 +200,7 @@ public abstract class Ball {
 	 * @post | getVelocity().getSquareLength() > (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH) ? result == Constants.BALL_FAST_COLOR : result == Constants.BALL_COLOR
 	 */
 	public final Color getColor() {
-		if (getVelocity().getSquareLength() > (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
+		if (getVelocity().getSquareLength() >= (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
 			return Constants.BALL_FAST_COLOR;
 		}
 		else {

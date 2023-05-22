@@ -51,7 +51,6 @@ public abstract class BlockState {
 	 * 
 	 * @pre | ballState != null
 	 * @post | result != null && (result.getVelocity() .equals( ballState.getVelocity() ))
-	 * @creates | result
 	 */
 	public abstract Ball ballStateAfterHit(Ball ballState);
 

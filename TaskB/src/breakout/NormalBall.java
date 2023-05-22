@@ -13,8 +13,8 @@ public class NormalBall extends Ball {
 	 * 
 	 * @pre | rect != null
 	 * @pre | collidesWith(rect)
-	 * @post | getCenter().equals( old(getCenter() ))
-	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() ))
+	 * @post | getCenter().equals( old(getCenter() )) //prev. location
+	 * @post | getVelocity().equals(old(getVelocity()).mirrorOver(rect.collideWith(old(getLocation())))) || getVelocity().equals( old( getVelocity() )) //prev no ||
 	 * @mutates | this
 	 */
 	@Override
