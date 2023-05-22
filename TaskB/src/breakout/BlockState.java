@@ -9,6 +9,7 @@ import breakout.utils.Rect;
  *
  * @immutable
  * @invar | getLocation() != null
+ * 
  */
 public abstract class BlockState {
 	
@@ -37,8 +38,10 @@ public abstract class BlockState {
 	 * Returns the block state after getting hit by a ball (having speed = sqrt( squaredSpeed)),
 	 * or null if block is destroyed.
 	 * 
+	 * 
 	 * @pre | squaredSpeed >= 0
 	 * @post | (result == null || result.getLocation().equals(getLocation()))
+	 * @creates | result
 	 */
 	public abstract BlockState blockStateAfterHit(int squaredSpeed);
 
@@ -48,6 +51,7 @@ public abstract class BlockState {
 	 * 
 	 * @pre | ballState != null
 	 * @post | result != null && (result.getVelocity() .equals( ballState.getVelocity() ))
+	 * @creates | result
 	 */
 	public abstract Ball ballStateAfterHit(Ball ballState);
 
@@ -56,6 +60,7 @@ public abstract class BlockState {
 	 * paddle state.
 	 * 
 	 * @pre | paddleState != null
+	 * @creates | result
 	 */
 	public abstract PaddleState paddleStateAfterHit(PaddleState paddleState);
 

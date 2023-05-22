@@ -11,8 +11,8 @@ public class NormalBlockState extends BlockState {
 
 	/**
 	 * Construct a block occupying a given rectangle in the field.
-	 * | @pre | location != null
-	 * | @post | getLocation().equals(location)
+	 * @pre | location != null
+	 * @post | getLocation().equals(location)
 	 */
 	public NormalBlockState(Rect location) {
 		super(location);
@@ -21,6 +21,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | squaredSpeed >= 0
 	 * @post | result == null
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
@@ -30,6 +31,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | ballState != null
 	 * @post | result == ballState
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
@@ -39,6 +41,7 @@ public class NormalBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | paddleState != null
 	 * @post | result == paddleState
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
@@ -46,6 +49,9 @@ public class NormalBlockState extends BlockState {
 	}
 
 	@Override
+	/**
+	 * @post | result == new Color(128, 128, 128)
+	 */
 	public Color getColor() {
 		return COLOR;
 	}

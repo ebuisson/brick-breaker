@@ -159,6 +159,10 @@ public class BreakoutState {
 		return getFieldInternal();
 	}
 	
+	/**
+	 * @pre | ball != null
+	 * 
+	 */
 	private void bounceWalls(Ball ball) {
 		for (Rect wall : walls) {
 			ball.hitRect(wall);
@@ -166,12 +170,21 @@ public class BreakoutState {
 	}
 	
 
-
+	/**
+	 * 
+	 * @pre | ball != null
+	 * @post | result == null || result == ball
+	 */
 	private Ball removeDead(Ball ball) {
 		if( ball.getLocation().getBottommostPoint().getY() > bottomRight.getY()) { return null; }
 		else { return ball; }
 	}
 
+	/**
+	 * 
+	 * @pre | b != null
+	 * @post | b.getLocation() == getFieldInternal().constrain(b.getLocation())
+	 */
 	private void clampBall(Ball b) {
 		Circle loc = getFieldInternal().constrain(b.getLocation());
 		b.setLocation(loc);
@@ -179,6 +192,8 @@ public class BreakoutState {
 	
 	/**
 	 * TODO
+	 * @pre | ball != null
+	 * @mutates | ball
 	 */
 	private Ball collideBallBlocks(Ball ball) {
 		for(int i=0; i<blocks.length; i++) {
@@ -204,6 +219,8 @@ public class BreakoutState {
 	 * Does not affect the balls.
 	 * 
 	 * @pre | squaredSpeed >= 0
+	 * @pre | block != null
+	 * 
 	 */
 	private boolean hitBlock(BlockState block, int squaredSpeed) {
 		boolean destroyed = true;
@@ -227,6 +244,8 @@ public class BreakoutState {
 	/**
 	 * @mutates | ball
 	 * @mutates | this
+	 * @pre | ball != null
+	 * @pre | paddleVel != null
 	 * @post | ball.getCenter().equals(old( ball.getCenter() ))
 	 */
 	private void collideBallPaddle(Ball ball, Vector paddleVel) {
@@ -351,6 +370,7 @@ public class BreakoutState {
 		}
 	}
 	
+
 	private void noLongerSuperCharged() {
 		for (int i = 0 ; i < balls.length ; i++) {
 			balls[i] = balls[i].backToNormal();

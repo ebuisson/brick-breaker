@@ -3,6 +3,13 @@ package breakout;
 import java.awt.Color;
 import breakout.utils.Rect;
 
+/**
+ *
+ * @immutable
+ * @invar | getLocation() != null
+ * @invar | getLivesLeft() > 0
+ * 
+ */
 public class SturdyBlockState extends BlockState {
 
 	private static final Color COLOR1 = new Color(160, 82, 45);
@@ -10,6 +17,12 @@ public class SturdyBlockState extends BlockState {
 	private static final Color COLOR3 = new Color(92, 64, 51);
 	private final int livesLeft;
 
+	/**
+	 * @pre | lives > 0
+	 * @pre | location != null
+	 * @post | getLocation().equals(location)
+	 * @post | getLivesLeft() == lives
+	 */
 	public SturdyBlockState(Rect location, int lives) {
 		super(location);
 		livesLeft = lives;
@@ -23,6 +36,7 @@ public class SturdyBlockState extends BlockState {
 	/**
 	 * TODO
 	 * @pre | squaredSpeed >= 0
+	 * @post | result == this || result == null || result == new SturdyBlockState(getLocation(),getLivesLeft() -1)
 	 */
 	public BlockState blockStateAfterHit(int squaredSpeed) {
 		if (getLivesLeft() == 1 && squaredSpeed < (Constants.BALL_SPEED_THRESH * Constants.BALL_SPEED_THRESH)) {
@@ -39,7 +53,9 @@ public class SturdyBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | ballState != null
 	 * @post | result == ballState
+	 * @creates | result
 	 */
 	public Ball ballStateAfterHit(Ball ballState) {
 		return ballState;
@@ -48,7 +64,9 @@ public class SturdyBlockState extends BlockState {
 	@Override
 	/**
 	 * TODO
+	 * @pre | paddleState != null
 	 * @post | result == paddleState
+	 * @creates | result
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
 		return paddleState;

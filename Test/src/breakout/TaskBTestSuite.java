@@ -118,6 +118,9 @@ class TaskBTestSuite {
 		
 	}
 	
+	//@Test
+	//Any ball that hits a powerup block gets a diameter of init_ball_diameter+600
+	
 
 	
 	
