@@ -33,7 +33,6 @@ public abstract class Ball {
  	 * @throws IllegalArgumentException | velocity == null
  	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())
 	 * @throws IllegalArgumentException | !location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))
-	 * @throws IllegalArgumentException | location.getDiameter() < Constants.INIT_BALL_DIAMETER
  	 * @post | getLocation().equals(location)
  	 * @post | getVelocity().equals(velocity)
 	 */
@@ -42,7 +41,6 @@ public abstract class Ball {
 		if (velocity == null) throw new IllegalArgumentException();
 		if (!Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())) throw new IllegalArgumentException();
 		if (!location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))) throw new IllegalArgumentException();
-		if (location.getDiameter() < Constants.INIT_BALL_DIAMETER) throw new IllegalArgumentException();
 		this.location = location; //OK since Circle is immutable
 		this.velocity = velocity; //same
 	}

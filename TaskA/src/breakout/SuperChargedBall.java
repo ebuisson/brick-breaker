@@ -7,7 +7,6 @@ import breakout.utils.*;
 /**
  * Represents the state of a ball in the breakout game.
  * 
-// * @invar | getLifetime() >= 0
  */
 
 public class SuperChargedBall extends NormalBall {
@@ -32,7 +31,7 @@ public class SuperChargedBall extends NormalBall {
 	 * @pre | collidesWith(rect)
 	 * @post | getCenter().equals( old(getCenter() ))
 	 * @post | (getLifetime() < 0 || !destroyed) || getVelocity().equals(old(getVelocity()))
-	 * @mutates this
+	 * @mutates | this
 	 */
 	@Override
 	public void hitBlock(Rect rect, boolean destroyed) {

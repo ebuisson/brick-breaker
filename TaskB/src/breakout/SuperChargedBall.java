@@ -24,7 +24,6 @@ public class SuperChargedBall extends NormalBall {
  	 * @throws IllegalArgumentException | velocity == null
  	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())
 	 * @throws IllegalArgumentException | !location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))
-	 * @throws IllegalArgumentException | location.getDiameter() < Constants.INIT_BALL_DIAMETER
 	 * @throws IllegalArgumentException | lifetime < 0
 	 * @throws IllegalArgumentException | lifetime > Constants.SUPERCHARGED_BALL_LIFETIME
  	 * @post | getLocation().equals(location)
@@ -38,7 +37,6 @@ public class SuperChargedBall extends NormalBall {
 		if (velocity == null) throw new IllegalArgumentException();
 		if (!Constants.ORIGIN.isUpAndLeftFrom(location.getCenter())) throw new IllegalArgumentException();
 		if (!location.getCenter().isUpAndLeftFrom(new Point(Constants.WIDTH, Constants.HEIGHT))) throw new IllegalArgumentException();
-		if (location.getDiameter() < Constants.INIT_BALL_DIAMETER) throw new IllegalArgumentException();
 		if (lifetime < 0) throw new IllegalArgumentException();
 		if (lifetime > Constants.SUPERCHARGED_BALL_LIFETIME) throw new IllegalArgumentException();
 		this.lifetime = lifetime;
@@ -50,7 +48,7 @@ public class SuperChargedBall extends NormalBall {
 	 * @pre | rect != null
 	 * @pre | collidesWith(rect)
 	 * @post | getCenter().equals( old(getCenter() ))
-	 * @post | (getLifetime() < 0 || !destroyed) || getVelocity().equals(old(getVelocity()))
+	 * @post | (getLifetime() <= 0 || !destroyed) || getVelocity().equals(old(getVelocity()))
 	 * @post | getLocation().getDiameter() >= Constants.INIT_BALL_DIAMETER 
 	 * @mutates | this
 	 */
@@ -130,7 +128,7 @@ public class SuperChargedBall extends NormalBall {
 			return new NormalBall(new Circle(getCenter(), Constants.INIT_BALL_DIAMETER), getVelocity());
 		}
 		else {
-			return this.clone();
+			return this;
 		}
 	}
 

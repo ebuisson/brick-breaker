@@ -70,7 +70,7 @@ public class NormalBall extends Ball {
 	 * @post | result == this
 	 */
 	public Ball backToNormal() {
-		return this.clone();
+		return this;
 	}
 
 }

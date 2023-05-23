@@ -44,9 +44,23 @@ class BallTest {
 	
 	@Test 
 	void testBall() {
-		n1.setLocation(new Circle(new Point (2,2), 2));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new SuperChargedBall(null,v1010,4));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new SuperChargedBall(c152,null,4));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new SuperChargedBall(c152,v1010,-40));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new SuperChargedBall(c152,v1010,40000));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new SuperChargedBall(c152,v1010,40000));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new NormalBall(new Circle(new Point(-10,-10),Constants.INIT_BALL_DIAMETER),v1010));
+		assertThrows(IllegalArgumentException.class, 
+				() -> new NormalBall(new Circle(new Point(60000,60000),Constants.INIT_BALL_DIAMETER),v1010));
+		n1.setLocation(new Circle(new Point (2,2), Constants.INIT_BALL_DIAMETER));
 		n1.setPosition(new Point(1,1));
-		assertEquals(new Circle(new Point (1,1),2), n1.getLocation());
+		assertEquals(new Circle(new Point (1,1),Constants.INIT_BALL_DIAMETER), n1.getLocation());
 		assertEquals(new Point(1,1), n1.getCenter());
 		n1.setVelocity(new Vector(5,5));
 		assertEquals(new Vector(5,5), n1.getVelocity());
@@ -67,7 +81,7 @@ class BallTest {
 	}
 	
 	@Test
-	void testHitPaddle() {
+	void testNormalHitPaddle() {
 		n2.setVelocity(new Vector(0,4));
 		Rect paddle = new Rect (new Point (42000,28300), new Point (43000,29000));
 		Ball beforeHit1 = n2.clone();
@@ -78,7 +92,20 @@ class BallTest {
 		Ball beforeHit2 = n2.clone();
 		n2.hitPaddle(paddle, new Vector(6,0));
 		assertEquals(beforeHit2.bounceOn(paddle), n2.getVelocity());
+	}
+	
+	@Test
+	void testSuperChargedHitPaddle() {
+		s2.setVelocity(new Vector(0,4));
+		Rect paddle = new Rect (new Point (42000,28300), new Point (43000,29000));
+		Ball beforeHit1 = s2.clone();
+		s2.hitPaddle(paddle,new Vector (6,0));
+		assertEquals(beforeHit1.bounceOn(paddle).plus(new Vector(6,0).scaledDiv(5)), s2.getVelocity());
 		
+		s2.setVelocity(new Vector(20,20));
+		Ball beforeHit2 = s2.clone();
+		s2.hitPaddle(paddle, new Vector(6,0));
+		assertEquals(beforeHit2.bounceOn(paddle), s2.getVelocity());
 	}
 	
 	@Test
@@ -101,15 +128,13 @@ class BallTest {
 		Vector originalVel2 = s3.getVelocity();
 		s3.hitWall(wall);
 		assertEquals(originalVel2.mirrorOver(new Vector(-1,0)), s3.getVelocity());
-		//assertTrue(n3.getVelocity() == null);
 	}
 	
 	@Test
 	void testBackToNormal() {
 		assertEquals(n2.backToNormal(), n2);
 		assertEquals(s2.backToNormal(), s2);
-		assertEquals(s2.getLocation(),s2.backToNormal().getLocation());
-		assertEquals(s2.getVelocity(),s2.backToNormal().getVelocity());
+		assertEquals(new NormalBall(new Circle(new Point(10,5), Constants.INIT_BALL_DIAMETER), v1010), (new SuperChargedBall(c152,v1010,0)).backToNormal());
 	}
 
 	@Test

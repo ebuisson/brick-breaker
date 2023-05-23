@@ -70,8 +70,8 @@ public class BreakoutState {
 	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> b != null)
 	 * @throws IllegalArgumentException | !Constants.ORIGIN.isUpAndLeftFrom(bottomRight)
 	 * @throws IllegalArgumentException | !(new Rect(Constants.ORIGIN,bottomRight)).contains(paddle.getLocation())
-	 * @throws IllegalArgumentException | !Arrays.stream(balls).allMatch(b -> b != null)
-	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> b != null)  
+	 * @throws IllegalArgumentException | !Arrays.stream(balls).allMatch(b -> (new Rect(Constants.ORIGIN,bottomRight)).contains(b.getLocation()))
+	 * @throws IllegalArgumentException | !Arrays.stream(blocks).allMatch(b -> (new Rect(Constants.ORIGIN,bottomRight)).contains(b.getLocation())) 
 	 * @post | Arrays.equals(getBalls(),balls)
 	 * @post | Arrays.equals(getBlocks(),blocks)
 	 * @post | getBottomRight().equals(bottomRight)
@@ -183,7 +183,7 @@ public class BreakoutState {
 	/**
 	 * 
 	 * @pre | b != null
-	 * @post | b.getLocation() == getFieldInternal().constrain(b.getLocation())
+	 * @mutates | b
 	 */
 	private void clampBall(Ball b) {
 		Circle loc = getFieldInternal().constrain(b.getLocation());

@@ -63,8 +63,8 @@ class BreakoutStateTest {
 				() -> new BreakoutState(balls,new BlockState[] {new NormalBlockState(new Rect(new Point(-10,-10), new Point(-1,-1)))},
 						BR,paddle) );
 		assertThrows(IllegalArgumentException.class, 
-				() -> new BreakoutState(new Ball[] {new NormalBall(new Circle(new Point(-10,-10), 
-						Constants.INIT_BALL_DIAMETER), Constants.INIT_BALL_VELOCITY)},blocks,BR,paddle) );
+				() -> new BreakoutState(new Ball[] {new NormalBall(new Circle(new Point(60000,60000), Constants.INIT_BALL_DIAMETER), 
+						Constants.INIT_BALL_VELOCITY)},blocks,BR,paddle) );
 		
 	}
 	
@@ -93,6 +93,13 @@ class BreakoutStateTest {
 		assertEquals(1,state.getBalls().length);
 		assertEquals(3,state.getBlocks().length);
 		assertEquals(new Vector(-Setups.typicalNormalBall(0).getVelocity().getX(), Setups.typicalNormalBall(0).getVelocity().getY()) , state.getBalls()[0].getVelocity());
+	}
+	
+	@Test
+	void testHitBlock() {
+		BreakoutState state = new BreakoutState(new Ball[] {Setups.typicalNormalBall(1)},blocks,BR,paddle);
+		state.tickDuring(500);
+		assertEquals(blocks.length, state.getBlocks().length);
 	}
 	
 	
