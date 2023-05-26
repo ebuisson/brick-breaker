@@ -30,13 +30,10 @@ class TaskBTestSuite {
 	private BlockState[] blocks;
 	private Ball n0;
 	private Ball s0;
-	private Ball n4;
 	private Ball s4;
 	private Ball s3;
-	//private Ball[] balls;
 	private PaddleState paddle;
 	private ReplicatingPaddleState reppaddle;
-	//private BreakoutState state;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -52,12 +49,9 @@ class TaskBTestSuite {
 		reppaddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
 				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 2);
 		n0 = Setups.typicalNormalBall(0);
-		n4 = Setups.typicalNormalBall(4);
 		s4 = Setups.typicalSuperBall(4);
 		s3 = Setups.typicalSuperBall(3);
 		s0 = Setups.typicalSuperBall(0);
-		//balls = new Ball[] {n0};
-		//state = new BreakoutState(balls, blocks, BR, reppaddle);
 		
 	}
 	
@@ -79,7 +73,7 @@ class TaskBTestSuite {
 	}
 	
 	@Test
-	//Replicating paddle loses a count after a hit 
+	//Replicating paddle loses a count after a hit (so balls replicated decreases by 1 each time)
 	void replicatingPaddleCountAfterHitTest() {
 		ReplicatingPaddleState paddle = new ReplicatingPaddleState(new Point( Constants.WIDTH / 2, (3 * Constants.HEIGHT) / 4), 
 				Constants.TYPICAL_PADDLE_COLORS(), Constants.TYPICAL_PADDLE_COLORS()[1], 4);
@@ -141,7 +135,17 @@ class TaskBTestSuite {
 		BreakoutState state = new BreakoutState(ball, blocks, BR, reppaddle);
 		state.tickDuring(100);
 		assertTrue(state.getBalls()[0].getLocation().getCenter().getY() != state.getBalls()[1].getLocation().getCenter().getY());
-		
+	}
+	
+	@Test
+	//Replicate balls have the same class as the ball that hit the paddle
+	void ballsIdenticalSpawnTest() {
+		s0.setPosition(new Point(25000,21000));
+		s0.setVelocity(new Vector(0,50));
+		Ball[] ball = new Ball[] {s0};
+		BreakoutState state = new BreakoutState(ball, blocks, BR, reppaddle);
+		state.tickDuring(100);
+		assertEquals(state.getBalls()[0].getClass(), state.getBalls()[1].getClass());
 	}
 	
 	

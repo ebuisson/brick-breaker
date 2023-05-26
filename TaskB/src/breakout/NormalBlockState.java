@@ -50,7 +50,7 @@ public class NormalBlockState extends BlockState {
 
 	@Override
 	/**
-	 * @post | result == new Color(128, 128, 128)
+	 * @post | result.equals(new Color(128, 128, 128))
 	 */
 	public Color getColor() {
 		return COLOR;

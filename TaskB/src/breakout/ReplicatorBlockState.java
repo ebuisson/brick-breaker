@@ -23,10 +23,8 @@ public class ReplicatorBlockState extends NormalBlockState {
 	 * @pre | paddleState.getActualColors().length == 1 || paddleState.getActualColors().length == 3
 	 * @pre | paddleState.getCurColor() != null
 	 * @post | result.getCenter() == paddleState.getCenter()
-	 * @post | result.getActualColors() == Constants.TYPICAL_PADDLE_COLORS()
 	 * @post | result.getCurColor() == Constants.TYPICAL_PADDLE_COLORS()[1]
 	 * @post | ((ReplicatingPaddleState)result).getCount() == 4
-	// * @post | result.getClass() == ReplicatingPaddleState
 	 * @creates | result
 	 */
 	public PaddleState paddleStateAfterHit(PaddleState paddleState) {
@@ -34,7 +32,7 @@ public class ReplicatorBlockState extends NormalBlockState {
 	}
 
 	/**
-	 * @post | result == new Color(100, 149, 237)
+	 * @post | result.equals(new Color(100, 149, 237))
 	 */
 	@Override
 	public Color getColor() {

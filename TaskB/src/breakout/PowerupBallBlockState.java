@@ -34,7 +34,7 @@ public class PowerupBallBlockState extends NormalBlockState {
 	}
 
 	/**
-	 * @post | result == new Color(215, 0, 64)
+	 * @post | result.equals(new Color(215, 0, 64))
 	 */
 	@Override
 	public Color getColor() {

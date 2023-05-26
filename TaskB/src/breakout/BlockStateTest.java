@@ -81,6 +81,7 @@ class BlockStateTest {
 		assertEquals(new Color(123, 63, 0), twolivesb.getColor());
 		assertEquals(new Color(92, 64, 51), blocks[1].getColor());
 		assertEquals(new Color(100, 149, 237), blocks[2].getColor());
+		assertEquals(new Color(215, 0, 64), blocks[3].getColor());
 	}
 
 }

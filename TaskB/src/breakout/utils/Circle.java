@@ -23,7 +23,7 @@ public class Circle {
 	 * Construct a circle with a given center point and diameter.
 	 * 
 	 * @pre | center != null
-	 * @pre | diameter >= Constants.INIT_BALL_DIAMETER
+	 * @pre | diameter >= 0
 	 * @post | getCenter().equals(center)
 	 * @post | getDiameter() == diameter
 	 */
